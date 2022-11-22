@@ -12,6 +12,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<db:config name="American_Flight_Database_Config" doc:name="Database Config" doc:id="0198370c-90c9-4ed9-aa45-bf2b94abe00e" >
 		<db:my-sql-connection host="mudb.learn.mulesoft.com" port="3306" user="mule" password="mule" database="training" />
 	</db:config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="0ede3ba3-2a99-419e-aeb7-245f3c207c73" >
+		<db:my-sql-connection host="mudb.learn.mulesoft.com" port="3306" user="mule" password="mule" database="training" />
+	</db:config>
 	<flow name="get-all-flights" doc:id="90f8a464-cf38-406c-ad2b-83bdee58df52" >
 		<db:select doc:name="Select" doc:id="0147478c-d9f3-47ea-a4c1-f93a146aa795" config-ref="American_Flight_Database_Config">
 			<db:sql ><![CDATA[SELECT * FROM american]]></db:sql>
@@ -36,8 +39,8 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 			</ee:message>
 		</ee:transform>
 	</flow>
-	<flow name="american-flight-wsFlow1" doc:id="e3a3bd0d-ce9d-49d5-920d-79e2bcebab28" >
-		<db:select doc:name="Select" doc:id="923b69b0-e909-47fe-8363-fd2251fa8832" config-ref="American_Flight_Database_Config">
+	<flow name="get_flights_by_ID" doc:id="e3a3bd0d-ce9d-49d5-920d-79e2bcebab28" >
+		<db:select doc:name="Select" doc:id="923b69b0-e909-47fe-8363-fd2251fa8832" config-ref="Database_Config">
 			<db:sql ><![CDATA[SELECT * FROM american WHERE ID = :ID]]></db:sql>
 			<db:input-parameters ><![CDATA[#['ID' : message.attributes.uriParams.ID]]]></db:input-parameters>
 		</db:select>
